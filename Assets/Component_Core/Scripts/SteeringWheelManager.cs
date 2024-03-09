@@ -116,7 +116,7 @@ public class SteeringWheelManager : MonoBehaviour
     {
         ready = true;
         #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-            LogitechGSDK.LogiSteeringInitialize(false);
+            //LogitechGSDK.LogiSteeringInitialize(false);
         #endif 
         AssignSteeringWheels();
         var initForceFeedback = InitForceFeedback();
@@ -165,13 +165,13 @@ public class SteeringWheelManager : MonoBehaviour
     {
         ParticipantOrder po = ParticipantOrder.A;
         #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-        for (int i = 0; i < GetNumberOfConnectedDevices(); i++)
-        {
-            Debug.Log("We got the input controller called" + GetProductName(i) +
-                      "Assigning it to participant: " + po.ToString());
-            ActiveWheels.Add(po, new SteeringWheelData(i));
-            po++;
-        }
+        // for (int i = 0; i < GetNumberOfConnectedDevices(); i++)
+        // {
+        //     Debug.Log("We got the input controller called" + GetProductName(i) +
+        //               "Assigning it to participant: " + po.ToString());
+        //     ActiveWheels.Add(po, new SteeringWheelData(i));
+        //     po++;
+        // }
         #endif
     }
     
@@ -393,6 +393,7 @@ public class SteeringWheelManager : MonoBehaviour
 
     void Update()
     {
+        return;
         if (!ready || ActiveWheels == null) return;
         if (Application.platform == RuntimePlatform.OSXEditor) return;
         

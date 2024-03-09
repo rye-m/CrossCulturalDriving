@@ -269,7 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LocalServerCameraRig: {fileID: 4745764989242507463, guid: 88d526d91c71f5449adf54b23d90c58f, type: 3}
   JoinTypeConfig: {fileID: 11400000, guid: 57f0df8fd15be0a40b14ca928b11e5a8, type: 2}
-  SpawnTypeConfig: {fileID: 11400000, guid: 785e27700b417604bbd22c7ed43fea85, type: 2}
+  SpawnTypeConfig: {fileID: 11400000, guid: 22f3ebfb1be15a040af9212a3167c2ac, type: 2}
   WaitingRoomSpawnPositonData:
     m_Keys: []
     m_Values: []
