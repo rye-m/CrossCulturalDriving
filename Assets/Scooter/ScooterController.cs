@@ -66,6 +66,8 @@ public class ScooterController : Interactable_Object
     public float maxSteeringAngle;
 
     // Movement along X and Y axes.
+    public float accellation;
+    public float brake;
     public float movementX;
     public float movementY;
 
@@ -80,10 +82,11 @@ public class ScooterController : Interactable_Object
     {
         running = true;
         rb = GetComponent<Rigidbody>();
+        GetComponent<Rigidbody>().centerOfMass = new Vector3(0, -0.5f, -0.2f);
 
-        data_stream = new SerialPort(PortName, 115200);
+        data_stream = new SerialPort("COM6", 115200);
 
-        //ListAvailablePorts();
+        ListAvailablePorts();
 
         StartCoroutine(GetSerialData());
 
@@ -151,18 +154,27 @@ public class ScooterController : Interactable_Object
 
     IEnumerator GetSerialData()
     {
+ 
+        data_stream.RtsEnable = true;
+        data_stream.DtrEnable = true;
+        
         data_stream.Open();
         Debug.Log("startCorutine");
         while (running)
         {
+        // Debug.Log(data_stream.BytesToRead);
             while (data_stream.BytesToRead > 0)
             {
                 receivedstring = data_stream.ReadLine();
                 if (receivedstring.Length == 0) continue;
                 string[] datas = receivedstring.Split(',');
-                if (datas.Length != 2) continue;
-                float.TryParse(datas[0], out movementX);
-                float.TryParse(datas[1], out movementY);
+                if (datas.Length != 3) continue;
+                float.TryParse(datas[0], out accellation);
+                float.TryParse(datas[1], out brake);
+                float.TryParse(datas[2], out movementY);
+
+                movementX = accellation - brake * 3  > 0? accellation - brake : 0;
+        // Debug.Log("debug:" + movementX + ", " + movementY);
             }
 
             yield return null;
