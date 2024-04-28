@@ -293,6 +293,33 @@ public class farlab_logger : MonoBehaviour {
             }
         }
 
+        foreach (var escooter in FindObjectsOfType<ScooterController>()) {
+            logItems.Add(new LogItem(escooter.transform,
+                PositonLog,
+                $"{escooter.m_participantOrder.Value} car Pos"
+            ));
+
+            logItems.Add(new LogItem(escooter.transform,
+                OrientationLog,
+                $"{escooter.m_participantOrder.Value} car Rot"
+            ));
+
+            logItems.Add(new LogItem(escooter,
+                (refobj) => ((ScooterController)refobj).accellation.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} accel"
+            ));
+            logItems.Add(new LogItem(escooter,
+                (refobj) => ((ScooterController.AxleInfo_es)refobj).Wheel.steerAngle.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} steering"
+            ));
+
+            logItems.Add(new LogItem(escooter.GetComponent<Rigidbody>(),
+                (refobj) => ((Rigidbody)refobj).velocity.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} velocity"
+            ));
+        }
+
+
         foreach (var moco in FindObjectsOfType<Mocopie_Interactable>()) {
             var avatar = moco.GetMocopiAvatar();
             logItems.Add(new LogItem(avatar.transform,
@@ -399,6 +426,8 @@ public class farlab_logger : MonoBehaviour {
 
     private void InitLogs() {
         logStream = File.AppendText(path);
+        Debug.Log("Logfile path:");
+        Debug.Log(path);
     }
 
     private void CloseLogs() {

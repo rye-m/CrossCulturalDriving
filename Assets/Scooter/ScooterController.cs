@@ -89,6 +89,9 @@ public class ScooterController : Interactable_Object
         ListAvailablePorts();
 
         StartCoroutine(GetSerialData());
+        farlab_logger escooter_logger = new farlab_logger();
+        escooter_logger.StartRecording("escooter_01", "session_01");
+        Debug.Log("farlab_logger: " + );
 
         //Initiate the Serial stream
     }
@@ -173,7 +176,7 @@ public class ScooterController : Interactable_Object
                 float.TryParse(datas[1], out brake);
                 float.TryParse(datas[2], out movementY);
 
-                movementX = accellation - brake * 3  > 0? accellation - brake : 0;
+                movementX = accellation - brake * 3  ;//> 0? accellation - brake : 0;
         // Debug.Log("debug:" + movementX + ", " + movementY);
             }
 
