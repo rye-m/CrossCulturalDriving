@@ -68,6 +68,8 @@ public class ScooterController : Interactable_Object
     // Movement along X and Y axes.
     public float accellation;
     public float brake;
+    public float motor_log;
+    public float steering_log;
     public float movementX;
     public float movementY;
 
@@ -82,18 +84,13 @@ public class ScooterController : Interactable_Object
     {
         running = true;
         rb = GetComponent<Rigidbody>();
-        GetComponent<Rigidbody>().centerOfMass = new Vector3(0, -0.5f, -0.2f);
+        GetComponent<Rigidbody>().centerOfMass = new Vector3(0, -1.0f, -0.2f);
 
         data_stream = new SerialPort("COM6", 115200);
 
         ListAvailablePorts();
 
         StartCoroutine(GetSerialData());
-        farlab_logger escooter_logger = new farlab_logger();
-        escooter_logger.StartRecording("escooter_01", "session_01");
-        Debug.Log("farlab_logger: " + );
-
-        //Initiate the Serial stream
     }
 
     void OnDisable()
@@ -130,6 +127,8 @@ public class ScooterController : Interactable_Object
         float motor = maxMotorTorque * movementX;
         float steering = maxSteeringAngle * movementY;
         // Debug.Log("debug:" + movementX + ", " + movementY);
+        motor_log = motor;
+        steering_log = steering;
 
         foreach (AxleInfo_es AxleInfo_es in AxleInfo_ess)
         {

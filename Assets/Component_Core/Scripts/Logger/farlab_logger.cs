@@ -17,7 +17,7 @@ using Object = UnityEngine.Object;
 // ToDo: One such solution would be to dump frames to JSON.
 
 public class farlab_logger : MonoBehaviour {
-    public const char sep = ';'; //Separator for data values.
+    public const char sep = ','; //Separator for data values.
     public const char supSep = '_'; //Separator for values within one cell.
     public const string Fpres = "F6";
 
@@ -111,7 +111,7 @@ public class farlab_logger : MonoBehaviour {
     private Thread send; //Independent thread for writing and sending data from databuffer
     public static farlab_logger Instance { get; private set; }
 
-    // Use this for initialization
+    // Use this for  ialization
     private void Awake() {
         if (Instance != null && Instance != this)
             Destroy(gameObject);
@@ -296,29 +296,29 @@ public class farlab_logger : MonoBehaviour {
         foreach (var escooter in FindObjectsOfType<ScooterController>()) {
             logItems.Add(new LogItem(escooter.transform,
                 PositonLog,
-                $"{escooter.m_participantOrder.Value} car Pos"
+                $"{escooter.m_participantOrder.Value} escooter Pos"
             ));
 
             logItems.Add(new LogItem(escooter.transform,
                 OrientationLog,
-                $"{escooter.m_participantOrder.Value} car Rot"
+                $"{escooter.m_participantOrder.Value} escooter Rot"
             ));
 
             logItems.Add(new LogItem(escooter,
-                (refobj) => ((ScooterController)refobj).accellation.ToString(Fpres),
-                $"{escooter.m_participantOrder.Value} accel"
+                (refobj) => ((ScooterController)refobj).motor_log.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} escooter motor"
             ));
             logItems.Add(new LogItem(escooter,
-                (refobj) => ((ScooterController.AxleInfo_es)refobj).Wheel.steerAngle.ToString(Fpres),
-                $"{escooter.m_participantOrder.Value} steering"
+                (refobj) => ((ScooterController)refobj).steering_log.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} escooter steering"
             ));
 
             logItems.Add(new LogItem(escooter.GetComponent<Rigidbody>(),
                 (refobj) => ((Rigidbody)refobj).velocity.ToString(Fpres),
-                $"{escooter.m_participantOrder.Value} velocity"
+                $"{escooter.m_participantOrder.Value} escooter velocity"
             ));
         }
-
+        Debug.Log("logItems: " + logItems);
 
         foreach (var moco in FindObjectsOfType<Mocopie_Interactable>()) {
             var avatar = moco.GetMocopiAvatar();

@@ -129,6 +129,9 @@ using UnityEngine.Rendering;
                 else if (Input.GetKeyUp(KeyCode.B))
                     ResetInteractableObject(ParticipantOrder.B);
             }
+                Debug.Log("ServerState" + ServerState);
+                Debug.Log("NetworkManager.Singleton.IsServer" + NetworkManager.Singleton.IsServer);
+                Debug.Log("NetworkManager.Singleton.IsHost" + NetworkManager.Singleton.IsHost);
 
             switch (ServerState) {
                 case ActionState.DEFAULT: break;
@@ -284,7 +287,8 @@ using UnityEngine.Rendering;
         NetworkManager.Singleton.StartHost();
         NetworkManager.Singleton.SceneManager.OnSceneEvent += SceneEvent_Server;
         
-      //  var t=  Instantiate(ZedManagerPrefab);
+    //    var t=  Instantiate(JoinType_To_Client_Object[JoinType.SERVER],
+    //                 Vector3.zero, Quaternion.identity);
     //    DontDestroyOnLoad(t);
         
     }
