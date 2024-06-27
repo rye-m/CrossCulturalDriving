@@ -86,7 +86,7 @@ public class ScooterController : Interactable_Object
         rb = GetComponent<Rigidbody>();
         GetComponent<Rigidbody>().centerOfMass = new Vector3(0, -1.0f, -0.2f);
 
-        data_stream = new SerialPort("COM6", 115200);
+        data_stream = new SerialPort("COM3", 115200);
 
         ListAvailablePorts();
 
