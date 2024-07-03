@@ -8,11 +8,12 @@ using NativeWebSocket;
 
 public class Websocket_escooter : MonoBehaviour
 {
-    public string Websocket_message;
-    public string raw_message;
-    public string previous_message = "";
+  public string Websocket_message;
+  public string raw_message;
+  public string previous_message = "";
 
-    public string server_addr = "ws://192.168.1.10:8888";
+  public string server_addr = "ws://192.168.0.109:8888";
+  public bool zoomout_flg = false;
 
   WebSocket websocket;
 
@@ -61,12 +62,23 @@ public class Websocket_escooter : MonoBehaviour
   }
 
   void Update()
-  {
+  {   
     #if !UNITY_WEBGL || UNITY_EDITOR
       websocket.DispatchMessageQueue();
     #endif
     // if (raw_message != previous_message){
     //     previous_message = raw_message;
+    //     Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
+    // }
+    // else if (raw_message == "zoom_in"){
+    //     zoomout_flg = false;
+    //     previous_message = raw_message;
+    //     Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
+    // }
+    // else if (raw_message == "zoom_out"){
+    //     zoomout_flg = true;
+    //     previous_message = raw_message;
+    //     Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
     // }
     // else{
     //     Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": ";
