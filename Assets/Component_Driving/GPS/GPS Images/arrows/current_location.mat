@@ -86,7 +86,7 @@ Material:
     - _DstBlend: 10
     - _EmissiveValue: 0.5
     - _GlossMapScale: 1
-    - _Glossiness: 1
+    - _Glossiness: 0.1
     - _GlossyReflections: 1
     - _LightBias: 0
     - _LightScale: 1

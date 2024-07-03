@@ -317,7 +317,21 @@ public class farlab_logger : MonoBehaviour {
                 (refobj) => ((Rigidbody)refobj).velocity.ToString(Fpres),
                 $"{escooter.m_participantOrder.Value} escooter velocity"
             ));
+        //     logItems.Add(new LogItem(websocket_e.GetComponent<Rigidbody>(),
+        //         (refobj) => ((Websocket_escooter)refobj).Websocket_message.ToString(),
+        //         // websocket_e.Websocket_message,
+        //         $"websocket message"
+        //     ));
         }
+
+        foreach (var websocket_e in FindObjectsOfType<Websocket_escooter>()) {
+            logItems.Add(new LogItem(websocket_e,
+                (refobj) => ((Websocket_escooter)refobj).Websocket_message.ToString(),
+                // websocket_e.Websocket_message,
+                $"websocket message"
+            ));
+        }
+
         Debug.Log("logItems: " + logItems);
 
         foreach (var moco in FindObjectsOfType<Mocopie_Interactable>()) {
