@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 // using System.Exception;
 
 public class exDispCamera : MonoBehaviour
@@ -8,13 +10,21 @@ public class exDispCamera : MonoBehaviour
     public Transform NetworkedScooter; //Head = _interactableObject.GetCameraPositionObject().rotation;
 
     public GameObject ETA_object;
+    public TMP_Text textMeshPro;
 
     private Camera cam; //Head = _interactableObject.GetCameraPositionObject().rotation;
 
     private Vector3 movement;
     private float rotation;
 
+    private float totalDistanceTraveled;
+    private Vector3 lastPosition;
+
     Websocket_escooter Websocket_escooter;
+
+    void Awake(){
+        lastPosition = NetworkedScooter.transform.position;
+    }
 
     // Start is called before the first frame update
     void Start ()
@@ -32,15 +42,12 @@ public class exDispCamera : MonoBehaviour
 
     void LateUpdate ()
     {
-        Vector3 newPosition = NetworkedScooter.position;
-
         // if (Websocket_escooter.zoomout_flg){
             // cam.orthographicSize = 100;
         // }
         // else{
             // cam.orthographicSize = 10;
         // }
-        newPosition.y = transform.position.y;
         if (Input.GetKey(KeyCode.A)){
             cam.orthographicSize -= .5f;
         }
@@ -55,9 +62,19 @@ public class exDispCamera : MonoBehaviour
                 ETA_object.SetActive(false);
             }
 
+        Vector3 newPosition = NetworkedScooter.position;
+        newPosition.y = transform.position.y;
         transform.position = newPosition;
-
         transform.rotation = Quaternion.Euler(90f, NetworkedScooter.eulerAngles.y, 0f);
 
+        SetText();
+
+        totalDistanceTraveled += Vector3.Distance(NetworkedScooter.transform.position, lastPosition);
+        lastPosition = NetworkedScooter.transform.position;
+    }
+
+    public void SetText(){
+        textMeshPro.text = "Progress bar: " + totalDistanceTraveled.ToString();
+        // unitycccDefaultText.text = "test";
     }
 }

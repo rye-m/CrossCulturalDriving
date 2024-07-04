@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 3764268010393520938}
   - component: {fileID: 2850542968975623609}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ' ETA_text'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,6 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NetworkedScooter: {fileID: 6760477444019452884}
   ETA_object: {fileID: 317151528392327575}
+  textMeshPro: {fileID: 2850542968975623609}
 --- !u!1 &3537624456566352535
 GameObject:
   m_ObjectHideFlags: 0
