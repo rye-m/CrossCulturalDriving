@@ -105,4 +105,15 @@ public class Websocket_escooter : MonoBehaviour
     await websocket.Close();
   }
 
+  // private void zoom(){
+  //   if (Input.GetKey(KeyCode.A)){
+  //       cam.orthographicSize -= .5f;
+  //   }
+  //   else if (Input.GetKey(KeyCode.B)){
+  //       cam.orthographicSize += .5f;
+  //   }
+  //   transform.position = newPosition;
+
+  // }
+
 }

@@ -6,6 +6,9 @@ using UnityEngine;
 public class exDispCamera : MonoBehaviour
 {
     public Transform NetworkedScooter; //Head = _interactableObject.GetCameraPositionObject().rotation;
+
+    public GameObject ETA_object;
+
     private Camera cam; //Head = _interactableObject.GetCameraPositionObject().rotation;
 
     private Vector3 movement;
@@ -23,30 +26,38 @@ public class exDispCamera : MonoBehaviour
             {
                 Display.displays[i].Activate();
             }
-        cam = this.camera;
+        cam = this.GetComponent<Camera>();
+        ETA_object.SetActive(false);
     }
-
 
     void LateUpdate ()
     {
         Vector3 newPosition = NetworkedScooter.position;
 
         // if (Websocket_escooter.zoomout_flg){
-        //     newPosition.y = transform.position.y + 100;
+            // cam.orthographicSize = 100;
         // }
         // else{
-        //     newPosition.y = transform.position.y;
+            // cam.orthographicSize = 10;
         // }
         newPosition.y = transform.position.y;
-        if (Input.GetKey(KeyCode.KeypadPlus)){
-            cam.orthographicSWize -= .1f;
+        if (Input.GetKey(KeyCode.A)){
+            cam.orthographicSize -= .5f;
         }
-        else if (Input.GetKey(KeyCode.KeypadMinus)){
-            cam.orthographicSWize += .1f;
+        else if (Input.GetKey(KeyCode.B)){
+            cam.orthographicSize += .5f;
         }
+        else if (Input.GetKey(KeyCode.C)){
+            // if (ETA_object.activeInHierarchy){
+                ETA_object.SetActive(true);
+            }
+        else if (!Input.GetKey(KeyCode.C)){
+                ETA_object.SetActive(false);
+            }
+
         transform.position = newPosition;
 
-        // transform.rotation = Quaternion.Euler(90f, NetworkedScooter.eulerAngles.y, 0f);
+        transform.rotation = Quaternion.Euler(90f, NetworkedScooter.eulerAngles.y, 0f);
 
     }
 }
