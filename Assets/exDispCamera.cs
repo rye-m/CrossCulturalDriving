@@ -18,6 +18,7 @@ public class exDispCamera : MonoBehaviour
     private float rotation;
 
     private float totalDistanceTraveled;
+    private float totalDistance = 620;
     private Vector3 lastPosition;
 
     Websocket_escooter Websocket_escooter;
@@ -74,7 +75,8 @@ public class exDispCamera : MonoBehaviour
     }
 
     public void SetText(){
-        textMeshPro.text = "Progress bar: " + totalDistanceTraveled.ToString();
+        float ETA_ratio = totalDistanceTraveled/totalDistance;
+        textMeshPro.text = "Progress bar(How far you've come): " + ETA_ratio.ToString("F2") + "%";
         // unitycccDefaultText.text = "test";
     }
 }
