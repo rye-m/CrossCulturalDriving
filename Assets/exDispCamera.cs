@@ -8,24 +8,13 @@ using TMPro;
 public class exDispCamera : MonoBehaviour
 {
     public Transform NetworkedScooter; //Head = _interactableObject.GetCameraPositionObject().rotation;
+    private Camera cam;
+    public GameObject ETA_diplay;
 
-    public GameObject ETA_object;
-    public TMP_Text textMeshPro;
-
-    private Camera cam; //Head = _interactableObject.GetCameraPositionObject().rotation;
 
     private Vector3 movement;
     private float rotation;
 
-    private float totalDistanceTraveled;
-    private float totalDistance = 620;
-    private Vector3 lastPosition;
-
-    Websocket_escooter Websocket_escooter;
-
-    void Awake(){
-        lastPosition = NetworkedScooter.transform.position;
-    }
 
     // Start is called before the first frame update
     void Start ()
@@ -38,45 +27,14 @@ public class exDispCamera : MonoBehaviour
                 Display.displays[i].Activate();
             }
         cam = this.GetComponent<Camera>();
-        ETA_object.SetActive(false);
+        ETA_diplay.SetActive(false);
     }
 
     void LateUpdate ()
     {
-        // if (Websocket_escooter.zoomout_flg){
-            // cam.orthographicSize = 100;
-        // }
-        // else{
-            // cam.orthographicSize = 10;
-        // }
-        if (Input.GetKey(KeyCode.A)){
-            cam.orthographicSize -= .5f;
-        }
-        else if (Input.GetKey(KeyCode.B)){
-            cam.orthographicSize += .5f;
-        }
-        else if (Input.GetKey(KeyCode.C)){
-            // if (ETA_object.activeInHierarchy){
-                ETA_object.SetActive(true);
-            }
-        else if (!Input.GetKey(KeyCode.C)){
-                ETA_object.SetActive(false);
-            }
-
         Vector3 newPosition = NetworkedScooter.position;
         newPosition.y = transform.position.y;
         transform.position = newPosition;
         transform.rotation = Quaternion.Euler(90f, NetworkedScooter.eulerAngles.y, 0f);
-
-        SetText();
-
-        totalDistanceTraveled += Vector3.Distance(NetworkedScooter.transform.position, lastPosition);
-        lastPosition = NetworkedScooter.transform.position;
-    }
-
-    public void SetText(){
-        float ETA_ratio = totalDistanceTraveled/totalDistance;
-        textMeshPro.text = "Progress bar(How far you've come): " + ETA_ratio.ToString("F2") + "%";
-        // unitycccDefaultText.text = "test";
     }
 }

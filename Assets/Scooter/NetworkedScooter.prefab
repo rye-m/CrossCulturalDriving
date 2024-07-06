@@ -638,8 +638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NetworkedScooter: {fileID: 6760477444019452884}
-  ETA_object: {fileID: 317151528392327575}
-  textMeshPro: {fileID: 2850542968975623609}
+  ETA_diplay: {fileID: 0}
 --- !u!1 &3537624456566352535
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,7 +1176,7 @@ MonoBehaviour:
   steering_log: 0
   movementX: 0
   movementY: 0
-  PortName: COM6
+  PortName: COM3
   receivedstring: 
   running: 0
 --- !u!114 &-9103787787654445183
@@ -1195,8 +1194,11 @@ MonoBehaviour:
   Websocket_message: 
   raw_message: 
   previous_message: 
-  server_addr: ws://192.168.1.10:8888
-  zoomout_flg: 0
+  server_addr: ws://192.168.1.2:8888
+  secondCam: {fileID: 4985948316637963723}
+  ETA_object: {fileID: 317151528392327575}
+  textMeshPro: {fileID: 2850542968975623609}
+  NetworkedScooter: {fileID: 6760477444019452884}
 --- !u!1 &7834705177919247903
 GameObject:
   m_ObjectHideFlags: 0

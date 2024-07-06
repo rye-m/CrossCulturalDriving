@@ -2,7 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 
 using NativeWebSocket;
 
@@ -12,10 +13,25 @@ public class Websocket_escooter : MonoBehaviour
   public string raw_message;
   public string previous_message = "";
 
-  public string server_addr = "ws://192.168.0.109:8888";
-  public bool zoomout_flg = false;
+  public string server_addr = "ws://192.168.1.2:8888";
+  private bool zoom_flg = false;
+  private bool eta_flg = true;
+
+  public Camera secondCam;
+  public GameObject ETA_object;
+  public TMP_Text textMeshPro;
+  public Transform NetworkedScooter; 
+
+  private float totalDistanceTraveled;
+  private float totalDistance = 620;
+  private Vector3 lastPosition;
+
 
   WebSocket websocket;
+
+  void Awake(){
+      lastPosition = NetworkedScooter.transform.position;
+  }
 
   // Start is called before the first frame update
   async void Start()
@@ -50,12 +66,8 @@ public class Websocket_escooter : MonoBehaviour
     //   else{
     //     Websocket_message = timestamp + ": ";
     //   }
-        Debug.Log("OnMessage! " + Websocket_message);
 
     };
-
-    // Keep sending messages at every 0.3s
-    // InvokeRepeating("SendWebSocketMessage", 0.0f, 0.3f);
 
     // waiting for messages
     await websocket.Connect();
@@ -66,27 +78,31 @@ public class Websocket_escooter : MonoBehaviour
     #if !UNITY_WEBGL || UNITY_EDITOR
       websocket.DispatchMessageQueue();
     #endif
-    // if (raw_message != previous_message){
-    //     previous_message = raw_message;
-    //     Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
-    // }
-    // else if (raw_message == "zoom_in"){
-    //     zoomout_flg = false;
-    //     previous_message = raw_message;
-    //     Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
-    // }
-    // else if (raw_message == "zoom_out"){
-    //     zoomout_flg = true;
-    //     previous_message = raw_message;
-    //     Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
-    // }
-    // else{
-    //     Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": ";
-    // }
 
+    if (raw_message == "ETA"){
+        Debug.Log("raw_message: " + raw_message);
+        eta_flg = !eta_flg;
+        ETA_object.SetActive(eta_flg);
+        previous_message = raw_message;
+    }
+    
+    else if (raw_message == "zoom"){
+        zoom_flg = !zoom_flg;
+        zoom();
+        previous_message = raw_message;
+    }
+    
+    Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
+
+    SetText();
+    raw_message = "";
   }
 
-//   void Late 
+    void LateUpdate ()
+    {
+      totalDistanceTraveled += Vector3.Distance(NetworkedScooter.transform.position, lastPosition);
+      lastPosition = NetworkedScooter.transform.position;
+    }
 
   async void SendWebSocketMessage()
   {
@@ -105,15 +121,20 @@ public class Websocket_escooter : MonoBehaviour
     await websocket.Close();
   }
 
-  // private void zoom(){
-  //   if (Input.GetKey(KeyCode.A)){
-  //       cam.orthographicSize -= .5f;
-  //   }
-  //   else if (Input.GetKey(KeyCode.B)){
-  //       cam.orthographicSize += .5f;
-  //   }
-  //   transform.position = newPosition;
+  private void zoom(){
+        if (zoom_flg){
+            secondCam.orthographicSize = 100;
+        }
+        else if(!zoom_flg){
+            secondCam.orthographicSize = 10;
+        }
 
-  // }
+  }
+
+  void SetText(){
+      float ETA_ratio = totalDistanceTraveled/totalDistance;
+      textMeshPro.text = "Progress(Howfaryou'vecome):" + ETA_ratio.ToString("F2") + "%";
+      // unitycccDefaultText.text = "test";
+  }
 
 }
