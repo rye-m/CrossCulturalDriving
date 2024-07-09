@@ -121,6 +121,18 @@ public class TestScreenClient : Client_Object {
         if (!IsLocalPlayer) {
             DisableNonLocalobjects();
         }
+        else if (IsServer){
+            var ParticipantA_Camera = ConnectionandSpawning.Singelton.GetMainCamera(ParticipantOrder.A);
+            netoworkObjectID netid = ParticipantA_Camera.NetworkObject.ID;
+
+            SendObjectToFollowClientRPC(netid):
+        }
+        else if (IsClient){
+            Client_object tmp = ClientObject.Instances.Where(x => x.GetParticipantOrder()==Participantorder.A);
+            if(tmp!=null){
+                followTransform =tmp.transform;
+            }
+        }
         else {
             m_ActionState.OnValueChanged += ActionStateUpdate;
             GetMainCamera();
