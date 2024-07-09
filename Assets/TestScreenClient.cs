@@ -80,6 +80,11 @@ public class TestScreenClient : Client_Object {
                 break;
             case SpawnType.ROBOT:
                 break;
+            case SpawnType.SCOOTER:
+                if (m_ActionState.Value == ActionState.DRIVE) {
+                    GetMainCamera();
+                }
+                break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
@@ -161,6 +166,9 @@ public class TestScreenClient : Client_Object {
                 case SpawnType.PASSENGER:
                     break;
                 case SpawnType.ROBOT:
+                    break;
+                case SpawnType.SCOOTER:
+                    GetComponent<CharacterController>().enabled = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -287,6 +295,8 @@ public class TestScreenClient : Client_Object {
                 Offset = new Vector3(0f, 0f, 0.5f);
                 break;
             case SpawnType.ROBOT:
+                break;
+            case SpawnType.SCOOTER:
                 break;
             default:
                 break;

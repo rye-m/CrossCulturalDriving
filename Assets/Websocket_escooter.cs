@@ -12,6 +12,11 @@ public class Websocket_escooter : MonoBehaviour
   public string Websocket_message;
   public string raw_message;
   public string previous_message = "";
+  private int onmessage_count = 0;
+  private int previous_onmessage_count = 0;
+  private int [] onmessage_counts = {0, 0, 0, 0};
+  private int update_count = 0;
+  
 
   public string server_addr = "ws://192.168.1.2:8888";
   private bool zoom_flg = false;
@@ -56,16 +61,9 @@ public class Websocket_escooter : MonoBehaviour
     websocket.OnMessage += (bytes) =>
     {
       raw_message = System.Text.Encoding.UTF8.GetString(bytes);
-      var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
-
+      onmessage_count +=1;
       // getting the message as a string
-    //   if (message != previous_message){
-        Websocket_message = timestamp + ": " + raw_message;
-        // previous_message = message;
-    //   }
-    //   else{
-    //     Websocket_message = timestamp + ": ";
-    //   }
+        // Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
 
     };
 
@@ -79,23 +77,28 @@ public class Websocket_escooter : MonoBehaviour
       websocket.DispatchMessageQueue();
     #endif
 
-    if (raw_message == "ETA"){
-        Debug.Log("raw_message: " + raw_message);
-        eta_flg = !eta_flg;
-        ETA_object.SetActive(eta_flg);
-        previous_message = raw_message;
+    if (update_count%3 == 0){ // logger only make logs every 3 frame 
+    Debug.Log ("update_count: " + update_count);
+      if (onmessage_count != previous_onmessage_count){
+      
+        if (raw_message == "zoom"){
+          zoom_flg = !zoom_flg;
+          zoom();
+        }
+        else if (raw_message == "ETA"){
+          eta_flg = !eta_flg;
+          ETA_object.SetActive(eta_flg);
+        }
+        Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
+        previous_onmessage_count = onmessage_count;
+      }
     }
-    
-    else if (raw_message == "zoom"){
-        zoom_flg = !zoom_flg;
-        zoom();
-        previous_message = raw_message;
-    }
-    
-    Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
+    else {
+      Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": ";
+      }
 
     SetText();
-    raw_message = "";
+    update_count += 1;
   }
 
     void LateUpdate ()
