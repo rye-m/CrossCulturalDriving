@@ -9,6 +9,7 @@ public class ThreeScreen_Participant : Client_Object {
     private ParticipantOrder m_participantOrder;
     private SpawnType _spawnType;
     private Interactable_Object _interactableObject;
+    // public Camera minimapCamera;
     
     
     // Start is called before the first frame update
@@ -31,6 +32,7 @@ public class ThreeScreen_Participant : Client_Object {
                 child.enabled = false;
                 
             }
+            // minimapCamera
         }
         
     }

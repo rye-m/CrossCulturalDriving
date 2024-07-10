@@ -78,7 +78,6 @@ public class Websocket_escooter : MonoBehaviour
     #endif
 
     if (update_count%3 == 0){ // logger only make logs every 3 frame 
-    Debug.Log ("update_count: " + update_count);
       if (onmessage_count != previous_onmessage_count){
       
         if (raw_message == "zoom"){
@@ -100,6 +99,9 @@ public class Websocket_escooter : MonoBehaviour
     SetText();
     update_count += 1;
   }
+
+
+  // timestamp: Category: action <- log format
 
     void LateUpdate ()
     {

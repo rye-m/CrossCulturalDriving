@@ -313,7 +313,7 @@ public class farlab_logger : MonoBehaviour {
                 $"{escooter.m_participantOrder.Value} escooter steering"
             ));
 
-            logItems.Add(new LogItem(escooter.GetComponent<Rigidbody>(),
+            logItems.Add(new LogItem(escooter.GetComponent<Rigidbody>(), // Reach out to David/Mario about the format of the log
                 (refobj) => ((Rigidbody)refobj).velocity.ToString(Fpres),
                 $"{escooter.m_participantOrder.Value} escooter velocity"
             ));

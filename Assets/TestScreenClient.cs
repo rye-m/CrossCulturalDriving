@@ -9,7 +9,8 @@ public class TestScreenClient : Client_Object {
 
     public GameObject QuestionairPrefab;
     private QN_Display qnmanager;
-    
+    public Camera minimapCamera;
+
     private const string OffsetFileName = "TestScreenClientOffset";
     private NetworkVariable<SpawnType> m_spawnType=new NetworkVariable<SpawnType>();
     private NetworkVariable<ParticipantOrder> m_participantOrder=new NetworkVariable<ParticipantOrder>();
@@ -122,17 +123,18 @@ public class TestScreenClient : Client_Object {
             DisableNonLocalobjects();
         }
         else if (IsServer){
-            var ParticipantA_Camera = ConnectionandSpawning.Singelton.GetMainCamera(ParticipantOrder.A);
-            netoworkObjectID netid = ParticipantA_Camera.NetworkObject.ID;
+        //     // var ParticipantA_Camera = ConnectionandSpawning.Singelton.GetMainCamera(ParticipantOrder.A);
+            // var ParticipantA_Camera = GetMainCamera(minimapCamera);
+            // networkObjectID netid = ParticipantA_Camera.NetworkObject.ID;
 
-            SendObjectToFollowClientRPC(netid):
+        //     SendObjectToFollowClientRPC(netid);
         }
-        else if (IsClient){
-            Client_object tmp = ClientObject.Instances.Where(x => x.GetParticipantOrder()==Participantorder.A);
-            if(tmp!=null){
-                followTransform =tmp.transform;
-            }
-        }
+        // else if (IsClient){
+        //     Client_object tmp = ClientObject.Instances.Where(x => x.GetParticipantOrder()==Participantorder.A);
+        //     if(tmp!=null){
+        //         followTransform =tmp.transform;
+        //     }
+        // }
         else {
             m_ActionState.OnValueChanged += ActionStateUpdate;
             GetMainCamera();

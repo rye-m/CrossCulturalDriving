@@ -638,7 +638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NetworkedScooter: {fileID: 6760477444019452884}
-  ETA_diplay: {fileID: 0}
+  ETA_diplay: {fileID: 317151528392327575}
 --- !u!1 &3537624456566352535
 GameObject:
   m_ObjectHideFlags: 0

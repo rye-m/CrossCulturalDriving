@@ -8,7 +8,6 @@ using TMPro;
 public class exDispCamera : MonoBehaviour
 {
     public Transform NetworkedScooter; //Head = _interactableObject.GetCameraPositionObject().rotation;
-    private Camera cam;
     public GameObject ETA_diplay;
 
 
@@ -26,7 +25,7 @@ public class exDispCamera : MonoBehaviour
             {
                 Display.displays[i].Activate();
             }
-        cam = this.GetComponent<Camera>();
+
         ETA_diplay.SetActive(false);
     }
 
