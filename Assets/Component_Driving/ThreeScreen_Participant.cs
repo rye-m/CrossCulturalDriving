@@ -144,7 +144,7 @@ public class ThreeScreen_Participant : Client_Object {
     }
 
     public override void SetNewNavigationInstruction(Dictionary<ParticipantOrder, NavigationScreen.Direction> Directions) {
-        throw new System.NotImplementedException();
+       // throw new System.NotImplementedException();
     }
 
     [ServerRpc]

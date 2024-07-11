@@ -72,7 +72,8 @@ public enum SpawnType {
     PEDESTRIAN,
     PASSENGER,
     ROBOT,
-    SCOOTER
+    SCOOTER,
+    SCOOTERMAP
 }
 
 public struct FElem

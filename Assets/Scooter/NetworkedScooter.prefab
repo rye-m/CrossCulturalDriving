@@ -552,6 +552,7 @@ GameObject:
   - component: {fileID: 7323786353349427957}
   - component: {fileID: 4985948316637963723}
   - component: {fileID: 5850313048725186475}
+  - component: {fileID: 3605042858852996254}
   m_Layer: 0
   m_Name: SecondCamera
   m_TagString: Untagged
@@ -606,7 +607,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 100
+  far clip plane: 500
   field of view: 61
   orthographic: 1
   orthographic size: 10
@@ -639,6 +640,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NetworkedScooter: {fileID: 6760477444019452884}
   ETA_diplay: {fileID: 317151528392327575}
+--- !u!114 &3605042858852996254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692793790025636978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!1 &3537624456566352535
 GameObject:
   m_ObjectHideFlags: 0
