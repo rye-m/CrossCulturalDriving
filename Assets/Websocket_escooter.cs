@@ -9,16 +9,16 @@ using NativeWebSocket;
 
 public class Websocket_escooter : MonoBehaviour
 {
-  public string Websocket_message;
+  public string Websocket_message_timestamp;
+  public string Websocket_message_category;
+  public string Websocket_message_action;
   public string raw_message;
-  public string previous_message = "";
   private int onmessage_count = 0;
   private int previous_onmessage_count = 0;
-  private int [] onmessage_counts = {0, 0, 0, 0};
   private int update_count = 0;
   
 
-  public string server_addr = "ws://192.168.1.2:8888";
+  private string server_addr = "ws://192.168.1.6:8888";
   private bool zoom_flg = false;
   private bool eta_flg = true;
 
@@ -88,13 +88,18 @@ public class Websocket_escooter : MonoBehaviour
           eta_flg = !eta_flg;
           ETA_object.SetActive(eta_flg);
         }
-        Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": " + raw_message;
+        Websocket_message_timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
+        Websocket_message_category = raw_message.Split(":", StringSplitOptions.RemoveEmptyEntries)[0];
+        Websocket_message_action = raw_message.Split(":", StringSplitOptions.RemoveEmptyEntries)[1];
         previous_onmessage_count = onmessage_count;
+        Debug.Log("Websocket_message_timestamp: "+Websocket_message_timestamp);
+        Debug.Log("Websocket_message_category: "+Websocket_message_category);
+        Debug.Log("Websocket_message_timestamp: "+Websocket_message_timestamp);
       }
     }
     else {
-      Websocket_message = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString() + ": ";
-      }
+      Websocket_message_timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
+    }
 
     SetText();
     update_count += 1;
@@ -139,7 +144,7 @@ public class Websocket_escooter : MonoBehaviour
   void SetText(){
       float ETA_ratio = totalDistanceTraveled/totalDistance;
       textMeshPro.text = "Progress(Howfaryou'vecome):" + ETA_ratio.ToString("F2") + "%";
-      // unitycccDefaultText.text = "test";
+      // unityDefaultText.text = "test";
   }
 
 }

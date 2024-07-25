@@ -17,7 +17,7 @@ using Object = UnityEngine.Object;
 // ToDo: One such solution would be to dump frames to JSON.
 
 public class farlab_logger : MonoBehaviour {
-    public const char sep = ','; //Separator for data values.
+    public const char sep = '\t'; //Separator for data values.
     public const char supSep = '_'; //Separator for values within one cell.
     public const string Fpres = "F6";
 
@@ -82,7 +82,7 @@ public class farlab_logger : MonoBehaviour {
         HumanBodyBones.UpperChest
         //  , HumanBodyBones.LastBone
     };
-
+ 
     //   private Transform CarA;
 
 
@@ -306,7 +306,7 @@ public class farlab_logger : MonoBehaviour {
 
             logItems.Add(new LogItem(escooter,
                 (refobj) => ((ScooterController)refobj).motor_log.ToString(Fpres),
-                $"{escooter.m_participantOrder.Value} escooter motor"
+                $"{escooter.m_participantOrder.Value} escooter accel"
             ));
             logItems.Add(new LogItem(escooter,
                 (refobj) => ((ScooterController)refobj).steering_log.ToString(Fpres),
@@ -316,14 +316,26 @@ public class farlab_logger : MonoBehaviour {
             logItems.Add(new LogItem(escooter.GetComponent<Rigidbody>(), // Reach out to David/Mario about the format of the log
                 (refobj) => ((Rigidbody)refobj).velocity.ToString(Fpres),
                 $"{escooter.m_participantOrder.Value} escooter velocity"
-            ));
+             ));
         }
 
         foreach (var websocket_e in FindObjectsOfType<Websocket_escooter>()) {
             logItems.Add(new LogItem(websocket_e,
-                (refobj) => ((Websocket_escooter)refobj).Websocket_message.ToString(),
+                (refobj) => ((Websocket_escooter)refobj).Websocket_message_timestamp.ToString(),
                 // websocket_e.Websocket_message,
-                $"websocket message"
+                $"Websocket_message_timestamp"
+            ));
+            
+            logItems.Add(new LogItem(websocket_e,
+                (refobj) => ((Websocket_escooter)refobj).Websocket_message_category.ToString(),
+                // websocket_e.Websocket_message,
+                $"Websocket_message_category"
+            ));
+            
+            logItems.Add(new LogItem(websocket_e,
+                (refobj) => ((Websocket_escooter)refobj).Websocket_message_action.ToString(),
+                // websocket_e.Websocket_message,
+                $"Websocket_message_action"
             ));
         }
 
