@@ -617,7 +617,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 1
+  m_TargetDisplay: 2
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
@@ -1222,10 +1222,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d041af4eee7b348b48a9c2c88d0dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Websocket_message: 
+  Websocket_message_timestamp: 
+  Websocket_message_category: 
+  Websocket_message_action: 
   raw_message: 
-  previous_message: 
-  server_addr: ws://192.168.1.2:8888
   secondCam: {fileID: 4985948316637963723}
   ETA_object: {fileID: 317151528392327575}
   textMeshPro: {fileID: 2850542968975623609}

@@ -17,7 +17,7 @@ using Object = UnityEngine.Object;
 // ToDo: One such solution would be to dump frames to JSON.
 
 public class farlab_logger : MonoBehaviour {
-    public const char sep = '\t'; //Separator for data values.
+    public const char sep = ','; //Separator for data values.
     public const char supSep = '_'; //Separator for values within one cell.
     public const string Fpres = "F6";
 
@@ -315,7 +315,7 @@ public class farlab_logger : MonoBehaviour {
 
             logItems.Add(new LogItem(escooter.GetComponent<Rigidbody>(), // Reach out to David/Mario about the format of the log
                 (refobj) => ((Rigidbody)refobj).velocity.ToString(Fpres),
-                $"{escooter.m_participantOrder.Value} escooter velocity"
+                $"{escooter.m_participantOrder.Value} escooter velocity_x,escooter velocity_y,escooter velocity_z"
              ));
         }
 

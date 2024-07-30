@@ -45,6 +45,7 @@ public class Websocket_escooter : MonoBehaviour
 
     websocket.OnOpen += () =>
     {
+      websocket.SendText("StrangeLand connected!");
       Debug.Log("Connection open!");
     };
 
@@ -94,14 +95,19 @@ public class Websocket_escooter : MonoBehaviour
         previous_onmessage_count = onmessage_count;
         Debug.Log("Websocket_message_timestamp: "+Websocket_message_timestamp);
         Debug.Log("Websocket_message_category: "+Websocket_message_category);
-        Debug.Log("Websocket_message_timestamp: "+Websocket_message_timestamp);
+        Debug.Log("Websocket_message_action: "+Websocket_message_action);
+      }
+      else {
+        Websocket_message_timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
+        Websocket_message_category = "";
+        Websocket_message_action = "";
       }
     }
     else {
       Websocket_message_timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
     }
 
-    SetText();
+    // SetText();
     update_count += 1;
   }
 
