@@ -17,7 +17,7 @@ using Object = UnityEngine.Object;
 // ToDo: One such solution would be to dump frames to JSON.
 
 public class farlab_logger : MonoBehaviour {
-    public const char sep = ','; //Separator for data values.
+    public const char sep = ';'; //Separator for data values.
     public const char supSep = '_'; //Separator for values within one cell.
     public const string Fpres = "F6";
 
@@ -313,9 +313,34 @@ public class farlab_logger : MonoBehaviour {
                 $"{escooter.m_participantOrder.Value} escooter steering"
             ));
 
+            logItems.Add(new LogItem(escooter,
+                (refobj) => ((ScooterController)refobj).acc_x_log.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} escooter acc_x"
+            ));
+            logItems.Add(new LogItem(escooter,
+                (refobj) => ((ScooterController)refobj).acc_y_log.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} escooter acc_y"
+            ));
+            logItems.Add(new LogItem(escooter,
+                (refobj) => ((ScooterController)refobj).acc_z_log.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} escooter acc_z"
+            ));
+            logItems.Add(new LogItem(escooter,
+                (refobj) => ((ScooterController)refobj).rot_x_log.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} escooter rot_x"
+            ));
+            logItems.Add(new LogItem(escooter,
+                (refobj) => ((ScooterController)refobj).rot_y_log.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} escooter rot_y"
+            ));
+            logItems.Add(new LogItem(escooter,
+                (refobj) => ((ScooterController)refobj).rot_z_log.ToString(Fpres),
+                $"{escooter.m_participantOrder.Value} escooter rot_z"
+            ));
+
             logItems.Add(new LogItem(escooter.GetComponent<Rigidbody>(), // Reach out to David/Mario about the format of the log
-                (refobj) => ((Rigidbody)refobj).velocity.ToString(Fpres),
-                $"{escooter.m_participantOrder.Value} escooter velocity_x,escooter velocity_y,escooter velocity_z"
+                VelocityLog,
+                $"{escooter.m_participantOrder.Value} escooter velocity"
              ));
         }
 
@@ -426,6 +451,14 @@ public class farlab_logger : MonoBehaviour {
         Array.Copy(BitConverter.GetBytes(((Transform)o).rotation.eulerAngles.z),0,outArray,8,4);
         return Convert.ToBase64String(outArray);
         //return ((Transform)o).rotation.eulerAngles.ToString(Fpres);
+    }
+    private string VelocityLog(object o) {
+        
+        byte[] outArray = new byte[3 * 4];
+        Array.Copy(BitConverter.GetBytes(((Rigidbody)o).velocity.x),0,outArray,0,4); //ToDo: maybe we need to check the size of a float...
+        Array.Copy(BitConverter.GetBytes(((Rigidbody)o).velocity.y),0,outArray,4,4);
+        Array.Copy(BitConverter.GetBytes(((Rigidbody)o).velocity.z),0,outArray,8,4);
+        return Convert.ToBase64String(outArray);
     }
 
 

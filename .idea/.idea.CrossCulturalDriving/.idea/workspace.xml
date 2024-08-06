@@ -304,7 +304,7 @@
       <workItem from="1709927104352" duration="7000" />
       <workItem from="1720625729550" duration="11826000" />
       <workItem from="1721105084049" duration="8147000" />
-      <workItem from="1721878189873" duration="20250000" />
+      <workItem from="1721878189873" duration="31707000" />
     </task>
     <servers />
   </component>
@@ -336,19 +336,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/exDispCamera.cs</url>
-          <line>25</line>
-          <properties documentPath="C:\GitRepos\CrossculturalDriving_2024_3_8\CrossCulturalDriving\Assets\exDispCamera.cs" containingFunctionPresentation="Method 'Start'">
-            <startOffsets>
-              <option value="795" />
-            </startOffsets>
-            <endOffsets>
-              <option value="826" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Websocket_escooter.cs</url>
           <line>149</line>
