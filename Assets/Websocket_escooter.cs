@@ -16,7 +16,7 @@ public class Websocket_escooter : MonoBehaviour
   private int onmessage_count = 0;
   private int previous_onmessage_count = 0;
   private int update_count = 0;
-  private int log_frameNumber = 2;
+  private int log_frameNumber = 1;
   
 
   private string server_addr = "ws://192.168.0.105:8888";
