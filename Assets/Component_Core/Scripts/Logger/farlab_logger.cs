@@ -21,7 +21,7 @@ public class farlab_logger : MonoBehaviour {
     public const char supSep = '_'; //Separator for values within one cell.
     public const string Fpres = "F6";
 
-    public float UpdatedFreqeuncy = 1f / 25f;
+    public float UpdatedFreqeuncy = 1f / 50f;
 
 
     public static HumanBodyBones[] BonesToTrack = {

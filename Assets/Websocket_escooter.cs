@@ -16,9 +16,10 @@ public class Websocket_escooter : MonoBehaviour
   private int onmessage_count = 0;
   private int previous_onmessage_count = 0;
   private int update_count = 0;
+  private int log_frameNumber = 2;
   
 
-  private string server_addr = "ws://192.168.1.6:8888";
+  private string server_addr = "ws://192.168.0.105:8888";
   private bool zoom_flg = false;
   private bool eta_flg = true;
 
@@ -78,7 +79,7 @@ public class Websocket_escooter : MonoBehaviour
       websocket.DispatchMessageQueue();
     #endif
 
-    if (update_count%3 == 0){ // logger only make logs every 3 frame 
+    if (update_count%log_frameNumber == 0){ // logger only make logs every 3 frame 
       if (onmessage_count != previous_onmessage_count){
       
         if (raw_message == "zoom"){

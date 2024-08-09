@@ -148,7 +148,7 @@ public class ScooterController : Interactable_Object
 
         float motor = maxMotorTorque * movementX;
         float steering = maxSteeringAngle * movementY;
-        // Debug.Log("debug:" + movementX + ", " + movementY);
+        
         motor_log = motor;
         steering_log = steering;
         
@@ -158,6 +158,8 @@ public class ScooterController : Interactable_Object
         rot_x_log = rot_x;
         rot_y_log = rot_y;
         rot_z_log = rot_z;
+
+        // Debug.Log("sensor_log:" + acc_x + ", " + acc_y + ", " + acc_z + ", " + rot_x + ", " + rot_y);// + ", " + rot_z);
 
 
         foreach (AxleInfo_es AxleInfo_es in AxleInfo_ess)
@@ -194,7 +196,7 @@ public class ScooterController : Interactable_Object
         Debug.Log("startCorutine");
         while (running)
         {
-            Debug.Log("debug:" + acc_x + ", " + acc_y + ", " + acc_z + ", " + rot_x + ", " + rot_y + ", " + rot_z);
+            // Debug.Log("debug:" + acc_x + ", " + acc_y + ", " + acc_z + ", " + rot_x + ", " + rot_y + ", " + rot_z);
             while (data_stream.BytesToRead > 0)
             {
                 receivedstring = data_stream.ReadLine();
