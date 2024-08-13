@@ -94,7 +94,7 @@ using UnityEngine.Rendering;
 
     public ActionState ServerState { get; private set; }
     public JoinParameters ThisClient { private set; get; } = new JoinParameters();
-
+    public bool StartStudyOnSceneLoad = false;
     private void Awake() {
         participants = new ParticipantOrderMapping();
         Main_ParticipantObjects = new Dictionary<ParticipantOrder, Client_Object>();
@@ -236,7 +236,6 @@ using UnityEngine.Rendering;
 
         Debug.Log("Starting Server for session: " + pairName);
     }
-
 
     public void StartAsServer(string pairName) {
         if (pairName == String.Empty) {
@@ -946,6 +945,10 @@ using UnityEngine.Rendering;
     private void SwitchToReady() {
         ServerState = ActionState.READY;
         ServerStateChange.Invoke(ActionState.READY);
+
+        if (StartStudyOnSceneLoad && LastLoadedScene != WaitingRoomSceneName) {
+            SwitchToDriving();
+        }
     }
 
 
