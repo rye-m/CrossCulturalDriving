@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using System.IO.Ports;
 
@@ -110,8 +112,6 @@ public class ScooterController : Interactable_Object
 
         data_stream = new SerialPort("COM3", 115200);
 
-        ListAvailablePorts();
-
         StartCoroutine(GetSerialData());
     }
 
@@ -176,29 +176,23 @@ public class ScooterController : Interactable_Object
         }
     }
 
-    void ListAvailablePorts()
-    {
-        string[] ports = SerialPort.GetPortNames();
-        Debug.Log("Available Ports:");
-        foreach (string port in ports)
-        {
-            Debug.Log(port);
-        }
-    }
+
 
     IEnumerator GetSerialData()
     {
- 
-        data_stream.RtsEnable = true;
-        data_stream.DtrEnable = true;
-        
+        try {
+            data_stream.RtsEnable = true;
+            data_stream.DtrEnable = true;
+        }
+        catch (IOException) {
+            Start();
+        }
         data_stream.Open();
         Debug.Log("startCorutine");
-        while (running)
-        {
+        while (running) {
             // Debug.Log("debug:" + acc_x + ", " + acc_y + ", " + acc_z + ", " + rot_x + ", " + rot_y + ", " + rot_z);
-            while (data_stream.BytesToRead > 0)
-            {
+                
+            while (data_stream.BytesToRead > 0) {
                 receivedstring = data_stream.ReadLine();
                 if (receivedstring.Length == 0) continue;
                 string[] datas = receivedstring.Split(',');
@@ -213,12 +207,14 @@ public class ScooterController : Interactable_Object
                 float.TryParse(datas[7], out rot_y);
                 float.TryParse(datas[8], out rot_z);
 
-                movementX = accellation - brake * 3  ;//> 0? accellation - brake : 0;
-        // Debug.Log("debug:" + acc_x + ", " + acc_y + ", " + acc_z + ", " + rot_x + ", " + rot_y + ", " + rot_z);
+                movementX = accellation - brake * 3; //> 0? accellation - brake : 0;
+                // Debug.Log("debug:" + acc_x + ", " + acc_y + ", " + acc_z + ", " + rot_x + ", " + rot_y + ", " + rot_z);
             }
+                
 
             yield return null;
         }
+
         data_stream.Close();
     }
 }
